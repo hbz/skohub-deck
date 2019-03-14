@@ -5,9 +5,20 @@ import { Global, css, jsx } from '@emotion/core'
 import emotionNormalize from 'emotion-normalize'
 
 import URLInput from './components/URLInput'
+import Column from './components/Column'
 
 const style = css`
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .columns {
+    display:flex;
+    flex: 1;
+    max-height: 100%;
+    width:100%;
+    overflow: auto;
+  }
 `
 
 export default class App extends Component {
@@ -24,6 +35,8 @@ export default class App extends Component {
   }
 
   render () {
+    const { urls } = this.state
+
     return (
       <main css={style} className="App">
         <Global
@@ -39,6 +52,13 @@ export default class App extends Component {
           `}
         />
         <URLInput addURL={this.addURL} />
+        <section className="columns">
+          {urls && urls.map(url => (
+            <Column key={url}>
+              {url}
+            </Column>
+          ))}
+        </section>
       </main>
     )
   }
