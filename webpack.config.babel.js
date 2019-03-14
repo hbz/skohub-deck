@@ -24,7 +24,9 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
-      new HtmlWebpackPlugin()
+      new HtmlWebpackPlugin({
+        template: 'src/index.html'
+      })
     ]
   }
   return config
