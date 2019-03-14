@@ -1,11 +1,12 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import merge from 'webpack-merge'
 
 module.exports = (env, options) => {
   const { mode } = options
   process.env.NODE_ENV = mode === 'production' ? mode : 'development'
 
-  const config = {
+  let config = {
     mode,
     entry: './src/index.js',
     output: {
@@ -29,5 +30,16 @@ module.exports = (env, options) => {
       })
     ]
   }
+
+  if (mode === 'production') {
+
+  } else {
+    config = merge(config, {
+      devServer: {
+        overlay: true
+      }
+    })
+  }
+
   return config
 }
