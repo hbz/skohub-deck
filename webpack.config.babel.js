@@ -1,4 +1,5 @@
 import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 module.exports = (env, options) => {
   const { mode } = options
@@ -21,7 +22,10 @@ module.exports = (env, options) => {
           }
         }
       ]
-    }
+    },
+    plugins: [
+      new HtmlWebpackPlugin()
+    ]
   }
   return config
 }
