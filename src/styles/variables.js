@@ -11,6 +11,9 @@ export const colors = {
 export const padding = css`
   padding: 10px;
 `
+export const radius = css`
+  border-radius: 2px;
+`
 
 export const buttonStyle = css`
   padding: 0,
@@ -19,4 +22,10 @@ export const buttonStyle = css`
   ${padding};
   color: ${colors.base};
   background-color: ${colors.accent};
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: ${colors.secondary};
+  }
 `
