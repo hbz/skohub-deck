@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { render } from 'react-dom'
 import { Global, css, jsx } from '@emotion/core'
 import emotionNormalize from 'emotion-normalize'
+import { CornerLeftUp } from 'react-feather'
 
 import URLInput from './components/URLInput'
 import Column from './components/Column'
@@ -19,6 +20,12 @@ const style = css`
     width:100%;
     overflow: auto;
   }
+
+  .addNew {
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 20px;
+  }
 `
 
 export default class App extends Component {
@@ -28,10 +35,15 @@ export default class App extends Component {
       urls: []
     }
     this.addURL = this.addURL.bind(this)
+    this.removeURL = this.removeURL.bind(this)
   }
 
   addURL (url) {
     this.setState({ urls: [...this.state.urls, url] })
+  }
+
+  removeURL (url) {
+    this.setState({ urls: this.state.urls.filter(u => u !== url) })
   }
 
   render () {
@@ -52,13 +64,17 @@ export default class App extends Component {
           `}
         />
         <URLInput addURL={this.addURL} />
-        <section className="columns">
-          {urls && urls.map(url => (
-            <Column key={url}>
-              {url}
-            </Column>
-          ))}
-        </section>
+        {urls.length ? (
+          <section className="columns">
+            {urls.map(url => (
+              <Column key={url} url={url} removeURL={this.removeURL}>
+              </Column>
+            ))}
+          </section>
+        ) : (
+          <div className="addNew" ><CornerLeftUp /> Add a new url</div>
+        )}
+
       </main>
     )
   }

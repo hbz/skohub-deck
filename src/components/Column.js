@@ -22,18 +22,21 @@ const style = css`
   }
 `
 
-const Column = ({ children }) => {
+const Column = ({ url, removeURL }) => {
   return (
     <div css={style} className="Column">
       <div className="columnHeader">
-        {children} <X />
+        {url} <X onClick={() => {
+          removeURL(url)
+        }} />
       </div>
     </div>
   )
 }
 
 Column.propTypes = {
-  children: PropTypes.node.isRequired
+  url: PropTypes.string.isRequired,
+  removeURL: PropTypes.func.isRequired
 }
 
 export default Column
