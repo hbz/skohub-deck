@@ -37,7 +37,7 @@ const NotificationList = ({ url, removeURL, notifications }) => {
             <Notification key={JSON.stringify(notification)} message={JSON.stringify(notification)} />
           ))
         ) : (
-          <div>No notification yet</div>
+          <Notification message='No notifications yet' />
         )}
       </div>
     </div>
