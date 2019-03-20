@@ -7,7 +7,8 @@ class HubURL extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      connection: null
+      connection: null,
+      notifications: []
     }
     this.connectURL = this.connectURL.bind(this)
   }
@@ -32,14 +33,16 @@ class HubURL extends Component {
     // Listen for messages
     socket.addEventListener('message', (event) => {
       console.log('Message from server:', event.data)
+      this.setState({ notifications: [...this.state.notifications, event.data] })
     })
   }
 
   render () {
     const { hubURL, removeURL } = this.props
+    const { connection, notifications } = this.state
     return (
-      this.state.connection && (
-        <NotificationList url={hubURL} removeURL={removeURL} />
+      connection && (
+        <NotificationList notifications={notifications} url={hubURL} removeURL={removeURL} />
       )
     )
   }
