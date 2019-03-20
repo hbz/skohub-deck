@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import PropTypes from 'prop-types'
 import { css, jsx } from '@emotion/core'
-import { colors as c, padding, radius } from '../styles/variables'
-
 import { X } from 'react-feather'
+
+import { colors as c, padding, radius } from '../styles/variables'
+import Notification from './Notification'
 
 const style = css`
   flex: 0 0 100%;
@@ -22,7 +23,7 @@ const style = css`
   }
 `
 
-const NotificationList = ({ url, removeURL }) => {
+const NotificationList = ({ url, removeURL, notifications }) => {
   return (
     <div css={style} className="NotificationList">
       <div className="NotificationListHeader">
@@ -30,13 +31,23 @@ const NotificationList = ({ url, removeURL }) => {
           removeURL(url)
         }} />
       </div>
+      <div>
+        {notifications.length ? (
+          notifications.map(notification => (
+            <Notification key={JSON.stringify(notification)} message={JSON.stringify(notification)} />
+          ))
+        ) : (
+          <div>No notification yet</div>
+        )}
+      </div>
     </div>
   )
 }
 
 NotificationList.propTypes = {
   url: PropTypes.string.isRequired,
-  removeURL: PropTypes.func.isRequired
+  removeURL: PropTypes.func.isRequired,
+  notifications: PropTypes.array.isRequired
 }
 
 export default NotificationList
