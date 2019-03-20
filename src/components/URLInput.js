@@ -11,8 +11,7 @@ const style = css`
   form {
     display: flex;
 
-    input[type=url],
-    input[type=search] {
+    input[type=url] {
       flex: 1;
       border: 0;
       ${padding};
@@ -38,7 +37,7 @@ const URLInput = ({ addURL }) => {
           }
         }}
       >
-        <input required type="search" placeholder="http://example.com" name="url"/>
+        <input required type="url" placeholder="http://example.com" name="url"/>
         <input type="submit" value="Subscribe"/>
       </form>
     </div>
