@@ -5,7 +5,7 @@ import emotionNormalize from 'emotion-normalize'
 import { CornerLeftUp } from 'react-feather'
 
 import URLInput from './URLInput'
-import Column from './Column'
+import HubURL from './HubURL'
 
 const style = css`
   min-height: 100vh;
@@ -66,8 +66,7 @@ class App extends Component {
         {urls.length ? (
           <section className="columns">
             {urls.map(url => (
-              <Column key={url} url={url} removeURL={this.removeURL}>
-              </Column>
+              <HubURL key={url} hubURL={url} removeURL={this.removeURL} ></HubURL>
             ))}
           </section>
         ) : (
