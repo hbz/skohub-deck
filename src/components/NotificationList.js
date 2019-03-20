@@ -13,7 +13,7 @@ const style = css`
   border: 1px solid ${c.secondary};
   ${radius}
 
-  .NotificationListHeader {
+  .notificationListHeader {
     color: ${c.base};
     background-color: ${c.secondary};
     ${padding}
@@ -26,7 +26,7 @@ const style = css`
 const NotificationList = ({ url, removeURL, notifications }) => {
   return (
     <div css={style} className="NotificationList">
-      <div className="NotificationListHeader">
+      <div className="notificationListHeader">
         {url} <X onClick={() => {
           removeURL(url)
         }} />
