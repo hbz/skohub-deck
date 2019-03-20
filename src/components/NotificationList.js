@@ -12,7 +12,7 @@ const style = css`
   border: 1px solid ${c.secondary};
   ${radius}
 
-  .columnHeader {
+  .NotificationListHeader {
     color: ${c.base};
     background-color: ${c.secondary};
     ${padding}
@@ -22,10 +22,10 @@ const style = css`
   }
 `
 
-const Column = ({ url, removeURL }) => {
+const NotificationList = ({ url, removeURL }) => {
   return (
-    <div css={style} className="Column">
-      <div className="columnHeader">
+    <div css={style} className="NotificationList">
+      <div className="NotificationListHeader">
         {url} <X onClick={() => {
           removeURL(url)
         }} />
@@ -34,9 +34,9 @@ const Column = ({ url, removeURL }) => {
   )
 }
 
-Column.propTypes = {
+NotificationList.propTypes = {
   url: PropTypes.string.isRequired,
   removeURL: PropTypes.func.isRequired
 }
 
-export default Column
+export default NotificationList
