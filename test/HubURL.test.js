@@ -21,5 +21,6 @@ describe('HubURL', () => {
     await server.connected
     await expect(server).toReceiveMessage('Hello Server from client!')
     await server.send('Test')
+    server.error()
   })
 })
