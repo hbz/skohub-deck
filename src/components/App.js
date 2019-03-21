@@ -7,6 +7,7 @@ import { CornerLeftUp } from 'react-feather'
 import NotificationList from './NotificationList'
 import HubURL from './HubURL'
 import TopicURI from './TopicURI'
+import ErrorBoundary from './ErrorBoundary'
 
 const style = css`
   min-height: 100vh;
@@ -111,34 +112,35 @@ class App extends Component {
             }
           `}
         />
-        <HubURL
-          connectURL={this.connectURL}
-          topic={topic}
-          addURL={this.addURL}
-          url={(urls.length && urls[0]) || null}
-          connectionState={connectionState}
-        />
-        {urls.length ? (
-          <Fragment>
-            <TopicURI addTopic={this.addTopic} topic={topic} />
-            {!topic && (
-              <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
-            )}
-            <section className="columns">
-              {(connection && topic) && urls.map(url => (
-                <NotificationList
-                  key={url}
-                  notifications={notifications}
-                  url={url}
-                  removeURL={this.removeURL}
-                />
-              ))}
-            </section>
-          </Fragment>
-        ) : (
-          <div className="addNew" ><CornerLeftUp /> Add a new url</div>
-        )}
-
+        <ErrorBoundary>
+          <HubURL
+            connectURL={this.connectURL}
+            topic={topic}
+            addURL={this.addURL}
+            url={(urls.length && urls[0]) || null}
+            connectionState={connectionState}
+          />
+          {urls.length ? (
+            <Fragment>
+              <TopicURI addTopic={this.addTopic} topic={topic} />
+              {!topic && (
+                <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
+              )}
+              <section className="columns">
+                {(connection && topic) && urls.map(url => (
+                  <NotificationList
+                    key={url}
+                    notifications={notifications}
+                    url={url}
+                    removeURL={this.removeURL}
+                  />
+                ))}
+              </section>
+            </Fragment>
+          ) : (
+            <div className="addNew" ><CornerLeftUp /> Add a new url</div>
+          )}
+        </ErrorBoundary>
       </main>
     )
   }
