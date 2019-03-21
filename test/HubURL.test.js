@@ -6,21 +6,43 @@ import React from 'react'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import WS from 'jest-websocket-mock'
-
 import HubURL from '../src/components/HubURL'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-const fakeURL = 'ws://localhost:8080'
-const server = new WS(fakeURL)
-
 describe('HubURL', () => {
-  test('Connects to fake WS', async () => {
-    shallow(<HubURL hubURL={fakeURL} removeURL={() => {}}/>)
-    await server.connected
-    await expect(server).toReceiveMessage('Hello Server from client!')
-    await server.send('Test')
-    server.error()
+  const wrapper = shallow(<HubURL addURL={() => {}} url={null} />)
+
+  test('Renders', () => {
+    expect(wrapper.exists('form')).toBe(true)
+    expect(wrapper.exists()).toBe(true)
+  })
+
+  test('Submit form for code coverage', () => {
+    // Test without url
+    wrapper.find('form').simulate('submit', {
+      preventDefault: () => {},
+      target: {
+        url: {
+          value: ''
+        }
+      }
+    })
+
+    // Test with url
+    wrapper.find('form').simulate('submit', {
+      preventDefault: () => {},
+      target: {
+        url: {
+          value: 'http://example.com'
+        }
+      }
+    })
+  })
+
+  test('Creates a title when it has a URL', () => {
+    wrapper.setProps({ url: 'ws://example.com' })
+    expect(wrapper.exists('h2')).toBe(true)
+    expect(wrapper.exists()).toBe(true)
   })
 })
