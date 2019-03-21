@@ -69,16 +69,15 @@ class App extends Component {
 
   connectURL (hubURL) {
     const socket = new WebSocket(hubURL)
-    this.setState({ connection: socket })
+
+    socket.onerror = (error) => {
+      this.setState({ connectionState: error.target.readyState })
+      throw (error)
+    }
 
     socket.addEventListener('open', (event) => {
       this.setState({ connectionState: event.target.readyState })
       socket.send('Hello Server from client!')
-    })
-
-    socket.addEventListener('error', (error) => {
-      this.setState({ connectionState: error.target.readyState })
-      throw (error)
     })
 
     socket.addEventListener('close', (event) => {
@@ -90,6 +89,7 @@ class App extends Component {
 
       this.setState({ notifications: [...notifications, event.data] })
     })
+    this.setState({ connection: socket })
   }
 
   render () {
