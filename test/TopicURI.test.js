@@ -28,7 +28,6 @@ describe('TopicURI', () => {
       }
     })
 
-    // Test with url
     wrapper.find('form').simulate('submit', {
       preventDefault: () => {},
       target: {

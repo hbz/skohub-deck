@@ -19,7 +19,6 @@ describe('HubURL', () => {
   })
 
   test('Submit form for code coverage', () => {
-    // Test without url
     wrapper.find('form').simulate('submit', {
       preventDefault: () => {},
       target: {
@@ -29,7 +28,6 @@ describe('HubURL', () => {
       }
     })
 
-    // Test with url
     wrapper.find('form').simulate('submit', {
       preventDefault: () => {},
       target: {

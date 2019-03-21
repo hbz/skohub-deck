@@ -55,7 +55,8 @@ class App extends Component {
   removeURL (url) {
     this.setState({
       urls: this.state.urls.filter(u => u !== url),
-      topic: null
+      topic: null,
+      notifications: []
     })
   }
 
@@ -74,12 +75,10 @@ class App extends Component {
     })
 
     socket.addEventListener('close', (event) => {
-      console.log('close', event.target.readyState)
       this.setState({ connectionState: event.target.readyState })
     })
 
     socket.addEventListener('message', (event) => {
-      console.log('Message from server:', event.data)
       this.setState({ notifications: [...this.state.notifications, event.data] })
     })
   }
@@ -87,8 +86,6 @@ class App extends Component {
   render () {
     const { urls, topic } = this.state
     const { connection, notifications, connectionState } = this.state
-
-    // let connectionState = (connection && connection.readyState) || null
 
     return (
       <main css={style} className="App">
@@ -110,7 +107,7 @@ class App extends Component {
             <TopicURI addTopic={this.addTopic} topic={topic} />
             <section className="columns">
               {connection && urls.map(url => (
-                <NotificationList key={url} h notifications={notifications} url={url} removeURL={this.removeURL} />
+                <NotificationList key={url} notifications={notifications} url={url} removeURL={this.removeURL} />
               ))}
             </section>
           </Fragment>
