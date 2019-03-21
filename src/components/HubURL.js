@@ -42,11 +42,9 @@ const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
           {connectionState === 1 &&
             <Zap/>
           }
-          {(connectionState === 2 ||
-            connectionState === 3 ||
-            connectionState === null) &&
+          {([2, 3, null].includes(connectionState)) && (
             <ZapOff/>
-          }
+          )}
           &nbsp;{url}
           {([2, 3, null].includes(connectionState) && topic) && (
             <Fragment>
