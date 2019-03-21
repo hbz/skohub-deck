@@ -40,14 +40,14 @@ const TopicURI = ({ addTopic, topic }) => {
           onSubmit={e => {
             e.preventDefault()
 
-            const url = e.target.url.value
-            if (url) {
-              addTopic(url)
-              e.target.url.value = ''
+            const uri = e.target.uri.value
+            if (uri) {
+              addTopic(uri)
+              e.target.uri.value = ''
             }
           }}
         >
-          <input required type="text" placeholder="Input a topic to subscribe" name="url"/>
+          <input required type="text" placeholder="Input a topic to subscribe" name="uri"/>
           <input type="submit" value="Add topic"/>
         </form>
       )}
