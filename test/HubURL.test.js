@@ -41,6 +41,22 @@ describe('HubURL', () => {
   test('Creates a title when it has a URL', () => {
     wrapper.setProps({ url: 'ws://example.com' })
     expect(wrapper.exists('h2')).toBe(true)
-    expect(wrapper.exists()).toBe(true)
+  })
+
+  test('Check connectionState has the right icon', () => {
+    wrapper.setProps({ connectionState: 0 })
+    expect(wrapper.find('Loader').exists()).toBe(true)
+
+    wrapper.setProps({ connectionState: 1 })
+    expect(wrapper.find('Zap').exists()).toBe(true)
+
+    wrapper.setProps({ connectionState: 2 })
+    expect(wrapper.find('ZapOff').exists()).toBe(true)
+
+    wrapper.setProps({ connectionState: 3 })
+    expect(wrapper.find('ZapOff').exists()).toBe(true)
+
+    wrapper.setProps({ connectionState: null })
+    expect(wrapper.find('ZapOff').exists()).toBe(true)
   })
 })
