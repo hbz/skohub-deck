@@ -41,7 +41,7 @@ describe('App', () => {
     await server.send('Test')
   })
 
-  test('Trows error on server error', async () => {
+  test('Throws error on server error', async () => {
     try {
       await server.error()
     } catch (error) {
