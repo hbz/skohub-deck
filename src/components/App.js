@@ -49,9 +49,6 @@ class App extends Component {
   addTopic (topic) {
     this.setState({ topic })
     this.connectURL(this.state.urls[0])
-    // this.setState({ urls: [...this.state., url] })
-    // this.connectURL(url)
-    // this.subscribeToTopic()
   }
 
   removeURL (url) {
@@ -97,7 +94,7 @@ class App extends Component {
             }
           `}
         />
-        <HubURL addURL={this.addURL} url={(urls.length && urls[0])} />
+        <HubURL addURL={this.addURL} url={(urls.length && urls[0]) || null} />
         {urls.length ? (
           <Fragment>
             <TopicURI addTopic={this.addTopic} topic={topic} />

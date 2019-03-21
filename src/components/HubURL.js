@@ -30,9 +30,9 @@ const style = css`
   }
 `
 
-const URLInput = ({ addURL, url }) => {
+const HubURL = ({ addURL, url }) => {
   return (
-    <div css={style} className="URLInput">
+    <div css={style} className="HubURL">
       {url ? (
         <h2><Link/>&nbsp;Connected to: {url}</h2>
       ) : (
@@ -56,13 +56,13 @@ const URLInput = ({ addURL, url }) => {
   )
 }
 
-URLInput.propTypes = {
+HubURL.propTypes = {
   url: PropTypes.string,
   addURL: PropTypes.func.isRequired
 }
 
-URLInput.defaultProps = {
+HubURL.defaultProps = {
   url: undefined
 }
 
-export default URLInput
+export default HubURL
