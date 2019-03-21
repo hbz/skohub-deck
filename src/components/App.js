@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import { Component } from 'react'
+import { Fragment, Component } from 'react'
 import { Global, css, jsx } from '@emotion/core'
 import emotionNormalize from 'emotion-normalize'
 import { CornerLeftUp } from 'react-feather'
 
-import URLInput from './URLInput'
+import NotificationList from './NotificationList'
 import HubURL from './HubURL'
+import TopicURI from './TopicURI'
 
 const style = css`
   min-height: 100vh;
@@ -31,9 +32,13 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      urls: []
+      urls: [],
+      topic: null,
+      connection: null,
+      notifications: []
     }
     this.addURL = this.addURL.bind(this)
+    this.addTopic = this.addTopic.bind(this)
     this.removeURL = this.removeURL.bind(this)
   }
 
@@ -41,12 +46,42 @@ class App extends Component {
     this.setState({ urls: [...this.state.urls, url] })
   }
 
+  addTopic (topic) {
+    this.setState({ topic })
+    this.connectURL(this.state.urls[0])
+    // this.setState({ urls: [...this.state., url] })
+    // this.connectURL(url)
+    // this.subscribeToTopic()
+  }
+
   removeURL (url) {
-    this.setState({ urls: this.state.urls.filter(u => u !== url) })
+    this.setState({
+      urls: this.state.urls.filter(u => u !== url),
+      topic: null
+    })
+  }
+
+  connectURL (hubURL) {
+    const socket = new WebSocket(hubURL)
+    this.setState({ connection: socket })
+
+    socket.addEventListener('open', (event) => {
+      socket.send('Hello Server from client!')
+    })
+
+    socket.addEventListener('error', (error) => {
+      console.error('Error connecting', error)
+    })
+
+    socket.addEventListener('message', (event) => {
+      console.log('Message from server:', event.data)
+      this.setState({ notifications: [...this.state.notifications, event.data] })
+    })
   }
 
   render () {
-    const { urls } = this.state
+    const { urls, topic } = this.state
+    const { connection, notifications } = this.state
 
     return (
       <main css={style} className="App">
@@ -62,13 +97,16 @@ class App extends Component {
             }
           `}
         />
-        <URLInput addURL={this.addURL} />
+        <HubURL addURL={this.addURL} url={(urls.length && urls[0])} />
         {urls.length ? (
-          <section className="columns">
-            {urls.map(url => (
-              <HubURL key={url} hubURL={url} removeURL={this.removeURL} ></HubURL>
-            ))}
-          </section>
+          <Fragment>
+            <TopicURI addTopic={this.addTopic} topic={topic} />
+            <section className="columns">
+              {connection && urls.map(url => (
+                <NotificationList key={url} h notifications={notifications} url={url} removeURL={this.removeURL} />
+              ))}
+            </section>
+          </Fragment>
         ) : (
           <div className="addNew" ><CornerLeftUp /> Add a new url</div>
         )}
