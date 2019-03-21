@@ -11,7 +11,13 @@ import HubURL from '../src/components/HubURL'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('HubURL', () => {
-  const wrapper = shallow(<HubURL addURL={() => {}} url={null} />)
+  const wrapper = shallow(
+    <HubURL
+      addURL={() => {}}
+      connectURL={() => {}}
+      url={null}
+    />
+  )
 
   test('Renders', () => {
     expect(wrapper.exists('form')).toBe(true)

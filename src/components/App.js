@@ -41,6 +41,7 @@ class App extends Component {
     this.addURL = this.addURL.bind(this)
     this.addTopic = this.addTopic.bind(this)
     this.removeURL = this.removeURL.bind(this)
+    this.connectURL = this.connectURL.bind(this)
   }
 
   addURL (url) {
@@ -110,7 +111,13 @@ class App extends Component {
             }
           `}
         />
-        <HubURL addURL={this.addURL} url={(urls.length && urls[0]) || null} connectionState={connectionState} />
+        <HubURL
+          connectURL={this.connectURL}
+          topic={topic}
+          addURL={this.addURL}
+          url={(urls.length && urls[0]) || null}
+          connectionState={connectionState}
+        />
         {urls.length ? (
           <Fragment>
             <TopicURI addTopic={this.addTopic} topic={topic} />
@@ -119,7 +126,12 @@ class App extends Component {
             )}
             <section className="columns">
               {(connection && topic) && urls.map(url => (
-                <NotificationList key={url} notifications={notifications} url={url} removeURL={this.removeURL} />
+                <NotificationList
+                  key={url}
+                  notifications={notifications}
+                  url={url}
+                  removeURL={this.removeURL}
+                />
               ))}
             </section>
           </Fragment>

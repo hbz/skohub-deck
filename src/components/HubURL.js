@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import PropTypes from 'prop-types'
+import { Fragment } from 'react'
 import { css, jsx } from '@emotion/core'
-import { Loader, Zap, ZapOff } from 'react-feather'
+import { Loader, Zap, ZapOff, RefreshCw } from 'react-feather'
 
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
@@ -30,7 +31,7 @@ const style = css`
   }
 `
 
-const HubURL = ({ addURL, url, connectionState }) => {
+const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
   return (
     <div css={style} className="HubURL">
       {url ? (
@@ -47,6 +48,11 @@ const HubURL = ({ addURL, url, connectionState }) => {
             <ZapOff/>
           }
           &nbsp;{url}
+          {([2, 3, null].includes(connectionState) && topic) && (
+            <Fragment>
+              &nbsp;<RefreshCw onClick={() => { connectURL(url) }} />
+            </Fragment>
+          )}
         </h2>
       ) : (
         <form
@@ -72,12 +78,15 @@ const HubURL = ({ addURL, url, connectionState }) => {
 HubURL.propTypes = {
   url: PropTypes.string,
   addURL: PropTypes.func.isRequired,
-  connectionState: PropTypes.number
+  connectURL: PropTypes.func.isRequired,
+  connectionState: PropTypes.number,
+  topic: PropTypes.string
 }
 
 HubURL.defaultProps = {
   url: undefined,
-  connectionState: undefined
+  connectionState: undefined,
+  topic: undefined
 }
 
 export default HubURL
