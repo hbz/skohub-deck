@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import PropTypes from 'prop-types'
 import { css, jsx } from '@emotion/core'
-import { Link } from 'react-feather'
+import { Loader, Zap, ZapOff } from 'react-feather'
 
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
@@ -30,11 +30,24 @@ const style = css`
   }
 `
 
-const HubURL = ({ addURL, url }) => {
+const HubURL = ({ addURL, url, connectionState }) => {
   return (
     <div css={style} className="HubURL">
       {url ? (
-        <h2><Link/>&nbsp;Connected to: {url}</h2>
+        <h2>
+          {connectionState === 0 &&
+            <Loader/>
+          }
+          {connectionState === 1 &&
+            <Zap/>
+          }
+          {(connectionState === 2 ||
+            connectionState === 3 ||
+            connectionState === null) &&
+            <ZapOff/>
+          }
+          &nbsp;{url}
+        </h2>
       ) : (
         <form
           onSubmit={e => {
@@ -48,7 +61,7 @@ const HubURL = ({ addURL, url }) => {
           }}
         >
           <input required type="url" placeholder="Input a Hub URL to connect" name="url"/>
-          <input type="submit" value="Subscribe"/>
+          <input type="submit" value="Add Hub"/>
         </form>
       )}
 
@@ -58,11 +71,13 @@ const HubURL = ({ addURL, url }) => {
 
 HubURL.propTypes = {
   url: PropTypes.string,
-  addURL: PropTypes.func.isRequired
+  addURL: PropTypes.func.isRequired,
+  connectionState: PropTypes.number
 }
 
 HubURL.defaultProps = {
-  url: undefined
+  url: undefined,
+  connectionState: undefined
 }
 
 export default HubURL
