@@ -35,6 +35,7 @@ class App extends Component {
       urls: [],
       topic: null,
       connection: null,
+      connectionState: null,
       notifications: []
     }
     this.addURL = this.addURL.bind(this)
@@ -63,11 +64,18 @@ class App extends Component {
     this.setState({ connection: socket })
 
     socket.addEventListener('open', (event) => {
+      this.setState({ connectionState: event.target.readyState })
       socket.send('Hello Server from client!')
     })
 
     socket.addEventListener('error', (error) => {
+      this.setState({ connectionState: error.target.readyState })
       throw (error)
+    })
+
+    socket.addEventListener('close', (event) => {
+      console.log('close', event.target.readyState)
+      this.setState({ connectionState: event.target.readyState })
     })
 
     socket.addEventListener('message', (event) => {
@@ -78,7 +86,9 @@ class App extends Component {
 
   render () {
     const { urls, topic } = this.state
-    const { connection, notifications } = this.state
+    const { connection, notifications, connectionState } = this.state
+
+    // let connectionState = (connection && connection.readyState) || null
 
     return (
       <main css={style} className="App">
@@ -94,7 +104,7 @@ class App extends Component {
             }
           `}
         />
-        <HubURL addURL={this.addURL} url={(urls.length && urls[0]) || null} />
+        <HubURL addURL={this.addURL} url={(urls.length && urls[0]) || null} connectionState={connectionState} />
         {urls.length ? (
           <Fragment>
             <TopicURI addTopic={this.addTopic} topic={topic} />
