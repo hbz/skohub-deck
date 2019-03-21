@@ -39,7 +39,14 @@ describe('App', () => {
     await server.connected
     await expect(server).toReceiveMessage('Hello Server from client!')
     await server.send('Test')
-    server.error()
+  })
+
+  test('Trows error on server error', async () => {
+    try {
+      await server.error()
+    } catch (error) {
+      expect(error.type).toBe('error')
+    }
   })
 
   test('Method removeURL', () => {

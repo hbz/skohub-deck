@@ -67,7 +67,7 @@ class App extends Component {
     })
 
     socket.addEventListener('error', (error) => {
-      console.error('Error connecting', error)
+      throw (error)
     })
 
     socket.addEventListener('message', (event) => {
