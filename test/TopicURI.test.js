@@ -41,6 +41,5 @@ describe('TopicURI', () => {
   test('Creates a h3 title when it has a Topic', () => {
     wrapper.setProps({ topic: 'Example topic' })
     expect(wrapper.exists('h3')).toBe(true)
-    expect(wrapper.exists()).toBe(true)
   })
 })

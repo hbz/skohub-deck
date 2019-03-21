@@ -8,6 +8,7 @@ import { colors as c, padding, buttonStyle } from '../styles/variables'
 const style = css`
   background-color: ${c.primary};
   padding: 10px 20px;
+  border-top: 1px solid ${c.base};
 
   h3 {
     margin: 0;
