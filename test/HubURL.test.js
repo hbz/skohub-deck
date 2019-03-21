@@ -10,11 +10,16 @@ import HubURL from '../src/components/HubURL'
 
 Enzyme.configure({ adapter: new Adapter() })
 
+let clicked = false
+const fakeConnectURL = () => {
+  clicked = true
+}
+
 describe('HubURL', () => {
   const wrapper = shallow(
     <HubURL
       addURL={() => {}}
-      connectURL={() => {}}
+      connectURL={fakeConnectURL}
       url={null}
     />
   )
@@ -57,6 +62,8 @@ describe('HubURL', () => {
 
     wrapper.setProps({ connectionState: 2, topic: 'Test Topic' })
     expect(wrapper.find('ZapOff').exists()).toBe(true)
+    wrapper.find('RefreshCw').simulate('click')
+    expect(clicked).toBe(true)
 
     wrapper.setProps({ connectionState: 3 })
     expect(wrapper.find('ZapOff').exists()).toBe(true)
