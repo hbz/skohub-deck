@@ -15,7 +15,6 @@ describe('TopicURI', () => {
 
   test('Renders', () => {
     expect(wrapper.exists('form')).toBe(true)
-    expect(wrapper.exists()).toBe(true)
   })
 
   test('Submit form for code coverage', () => {

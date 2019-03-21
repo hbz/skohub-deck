@@ -21,7 +21,6 @@ describe('HubURL', () => {
 
   test('Renders', () => {
     expect(wrapper.exists('form')).toBe(true)
-    expect(wrapper.exists()).toBe(true)
   })
 
   test('Submit form for code coverage', () => {
@@ -56,7 +55,7 @@ describe('HubURL', () => {
     wrapper.setProps({ connectionState: 1 })
     expect(wrapper.find('Zap').exists()).toBe(true)
 
-    wrapper.setProps({ connectionState: 2 })
+    wrapper.setProps({ connectionState: 2, topic: 'Test Topic' })
     expect(wrapper.find('ZapOff').exists()).toBe(true)
 
     wrapper.setProps({ connectionState: 3 })
