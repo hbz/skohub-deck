@@ -114,6 +114,9 @@ class App extends Component {
         {urls.length ? (
           <Fragment>
             <TopicURI addTopic={this.addTopic} topic={topic} />
+            {!topic && (
+              <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
+            )}
             <section className="columns">
               {(connection && topic) && urls.map(url => (
                 <NotificationList key={url} notifications={notifications} url={url} removeURL={this.removeURL} />
