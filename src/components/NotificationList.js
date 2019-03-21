@@ -27,7 +27,7 @@ const NotificationList = ({ url, removeURL, notifications }) => {
   return (
     <div css={style} className="NotificationList">
       <div className="notificationListHeader">
-        {url} <X onClick={() => {
+        Notifications <X onClick={() => {
           removeURL(url)
         }} />
       </div>

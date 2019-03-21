@@ -26,7 +26,7 @@ describe('NotificationList', () => {
 
   test('Renders', () => {
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.find('.notificationListHeader').text()).toBe('http://example.com <X />')
+    expect(wrapper.find('.notificationListHeader').text()).toBe('Notifications <X />')
     expect(wrapper.find('div').last().children().prop('message')).toBe('No notifications yet')
   })
 
