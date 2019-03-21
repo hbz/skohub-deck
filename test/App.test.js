@@ -49,6 +49,11 @@ describe('App', () => {
     }
   })
 
+  test('Close connection from server', async () => {
+    await server.close()
+    expect(wrapper.state('connectionState')).toBe(1)
+  })
+
   test('Method removeURL', () => {
     expect(wrapper.find('.columns').children().length).toBe(1)
     expect(wrapper.state('urls').includes(fakeURL)).toBe(true)
