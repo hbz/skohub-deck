@@ -44,20 +44,27 @@ class App extends Component {
   }
 
   addURL (url) {
-    this.setState({ urls: [...this.state.urls, url] })
+    const { urls } = this.state
+
+    this.setState({ urls: [...urls, url] })
   }
 
   addTopic (topic) {
+    const { urls } = this.state
+
     this.setState({ topic })
-    this.connectURL(this.state.urls[0])
+    this.connectURL(urls[0])
   }
 
   removeURL (url) {
+    const { connection, urls } = this.state
+
     this.setState({
-      urls: this.state.urls.filter(u => u !== url),
+      urls: urls.filter(u => u !== url),
       topic: null,
       notifications: []
     })
+    connection.close()
   }
 
   connectURL (hubURL) {
@@ -79,7 +86,9 @@ class App extends Component {
     })
 
     socket.addEventListener('message', (event) => {
-      this.setState({ notifications: [...this.state.notifications, event.data] })
+      const { notifications } = this.state
+
+      this.setState({ notifications: [...notifications, event.data] })
     })
   }
 
@@ -106,7 +115,7 @@ class App extends Component {
           <Fragment>
             <TopicURI addTopic={this.addTopic} topic={topic} />
             <section className="columns">
-              {connection && urls.map(url => (
+              {(connection && topic) && urls.map(url => (
                 <NotificationList key={url} notifications={notifications} url={url} removeURL={this.removeURL} />
               ))}
             </section>
