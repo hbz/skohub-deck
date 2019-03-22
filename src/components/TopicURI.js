@@ -13,7 +13,7 @@ const style = css`
   h3 {
     margin: 0;
     display: flex;
-    color: ${c.base};
+    color: ${c.text};
   }
 
   form {
@@ -48,7 +48,7 @@ const TopicURI = ({ addTopic, topic }) => {
             }
           }}
         >
-          <input required type="text" placeholder="Input a topic to subscribe" name="uri"/>
+          <input aria-label="uri" required type="text" placeholder="Input a topic to subscribe" name="uri"/>
           <input type="submit" value="Add topic"/>
         </form>
       )}

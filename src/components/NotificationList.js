@@ -14,7 +14,7 @@ const style = css`
   ${radius}
 
   .notificationListHeader {
-    color: ${c.base};
+    color: ${c.text};
     background-color: ${c.secondary};
     ${padding}
     display: flex;

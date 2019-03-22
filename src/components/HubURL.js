@@ -13,7 +13,7 @@ const style = css`
   h2 {
     margin: 0;
     display: flex;
-    color: ${c.base};
+    color: ${c.text};
   }
 
   form {
@@ -64,7 +64,7 @@ const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
             }
           }}
         >
-          <input required type="url" placeholder="Input a Hub URL to connect" name="url"/>
+          <input aria-label="url" required type="url" placeholder="Input a Hub URL to connect" name="url"/>
           <input type="submit" value="Add Hub"/>
         </form>
       )}
