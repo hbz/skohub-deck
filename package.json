@@ -10,7 +10,9 @@
     "test:coverage": "jest --verbose --coverage",
     "lint:js": "eslint src --ext .jsx,.js --quiet",
     "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development"
+    "dev": "webpack-dev-server --mode development",
+    "storybook": "start-storybook",
+    "build:storybook": "build-storybook -c .storybook -o .out"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,11 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@emotion/core": "^10.0.9",
+    "@storybook/addon-actions": "^5.0.3",
+    "@storybook/addon-knobs": "^5.0.3",
+    "@storybook/addon-notes": "^5.0.3",
+    "@storybook/addon-storysource": "^5.0.3",
+    "@storybook/react": "^5.0.3",
     "babel-loader": "^8.0.5",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
