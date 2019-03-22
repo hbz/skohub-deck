@@ -34,7 +34,7 @@ const NotificationList = ({ url, removeURL, notifications }) => {
       <div>
         {notifications.length ? (
           notifications.map(notification => (
-            <Notification key={notification} message={notification} />
+            <Notification key={notification.timeStamp} message={notification.data} />
           ))
         ) : (
           <Notification message='No notifications yet' />

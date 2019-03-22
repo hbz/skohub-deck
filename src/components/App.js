@@ -89,7 +89,7 @@ class App extends Component {
     socket.addEventListener('message', (event) => {
       const { notifications } = this.state
 
-      this.setState({ notifications: [...notifications, event.data] })
+      this.setState({ notifications: [...notifications, { data: event.data, timeStamp: event.timeStamp }] })
     })
     this.setState({ connection: socket })
   }
