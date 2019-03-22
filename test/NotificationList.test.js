@@ -32,7 +32,7 @@ describe('NotificationList', () => {
 
   test('Check the number of elements', () => {
     expect(wrapper.find('Notification').length).toBe(1)
-    wrapper.setProps({ notifications: ['foo', 'bar'] })
+    wrapper.setProps({ notifications: [{ data: 'foo', timeStamp: 5154 }, { data: 'bar', timeStamp: 6768 }] })
     expect(wrapper.find('Notification').length).toBe(2)
   })
 
