@@ -21,6 +21,15 @@ const style = css`
     align-items: center;
     justify-content: space-between;
   }
+
+  .Notification {
+    border-bottom: 1px solid ${c.secondary};
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
 `
 
 const NotificationList = ({ url, removeURL, notifications }) => {
