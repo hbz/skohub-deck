@@ -20,6 +20,7 @@ const style = css`
     max-height: 100%;
     width:100%;
     overflow: auto;
+    padding: 10px;
   }
 
   .addNew {
@@ -109,6 +110,12 @@ class App extends Component {
               margin: 0;
               font-size: 16px;
               font-family: Helvetica, Arial, sans-serif;
+              box-sizing: border-box;
+            }
+            *, *:before, *:after {
+              -webkit-box-sizing: inherit;
+              -moz-box-sizing: inherit;
+              box-sizing: inherit;
             }
           `}
         />
