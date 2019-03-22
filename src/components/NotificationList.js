@@ -9,9 +9,11 @@ import Notification from './Notification'
 const style = css`
   flex: 0 0 100%;
   max-width: 250px;
-  margin: 10px;
   border: 1px solid ${c.secondary};
   ${radius}
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .notificationListHeader {
     color: ${c.text};
@@ -20,6 +22,11 @@ const style = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .notificationListContent {
+    flex: 1;
+    overflow-y: auto;
   }
 
   div:last-child > * {
@@ -40,7 +47,7 @@ const NotificationList = ({ url, removeURL, notifications }) => {
           removeURL(url)
         }} />
       </div>
-      <div>
+      <div className="notificationListContent">
         {notifications.length ? (
           notifications.map(notification => (
             <Notification key={notification.timeStamp} message={notification.data} />

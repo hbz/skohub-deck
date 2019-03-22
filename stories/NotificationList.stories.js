@@ -24,7 +24,11 @@ storiesOf('NotificationList', module)
     }
 
     return (
-      <div style={{ maxHeight: '200px' }}>
+      <div style={{
+        overflow: 'hidden',
+        height: '300px',
+        paddingBottom: '10px'
+      }}>
         <NotificationList notifications={randomNotifications} removeURL={action('removeURL')} />
       </div>
     )
