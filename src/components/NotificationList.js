@@ -22,7 +22,7 @@ const style = css`
     justify-content: space-between;
   }
 
-  .Notification {
+  div:last-child > * {
     border-bottom: 1px solid ${c.secondary};
 
     &:last-child {
