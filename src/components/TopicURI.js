@@ -14,6 +14,7 @@ const style = css`
     margin: 0;
     display: flex;
     color: ${c.text};
+    align-items: center;
   }
 
   form {
