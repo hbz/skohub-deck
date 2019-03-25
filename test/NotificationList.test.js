@@ -24,6 +24,8 @@ describe('NotificationList', () => {
     />
   )
 
+  const fakeData = [{ data: 'foo', timeStamp: 5154 }]
+
   test('Renders', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.notificationListHeader').text()).toBe('Notifications <X />')
@@ -32,8 +34,16 @@ describe('NotificationList', () => {
 
   test('Check the number of elements', () => {
     expect(wrapper.find('Notification').length).toBe(1)
-    wrapper.setProps({ notifications: [{ data: 'foo', timeStamp: 5154 }, { data: 'bar', timeStamp: 6768 }] })
+    fakeData.unshift({ data: 'bar', timeStamp: 6768 })
+    wrapper.setProps({ notifications: fakeData })
     expect(wrapper.find('Notification').length).toBe(2)
+  })
+
+  test('Check if the new element is at the beginning', () => {
+    expect(wrapper.find('Notification').last().prop('message')).toBe('foo')
+    fakeData.unshift({ data: 'baz', timeStamp: 8848 })
+    wrapper.setProps({ notifications: fakeData })
+    expect(wrapper.find('Notification').first().prop('message')).toBe('baz')
   })
 
   test('Test removeURL', () => {
