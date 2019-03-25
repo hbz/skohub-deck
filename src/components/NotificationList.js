@@ -63,7 +63,10 @@ const NotificationList = ({ url, removeURL, notifications }) => {
 NotificationList.propTypes = {
   url: PropTypes.string.isRequired,
   removeURL: PropTypes.func.isRequired,
-  notifications: PropTypes.array.isRequired
+  notifications: PropTypes.shape({
+    message: PropTypes.string,
+    timeStamp: PropTypes.number
+  }).isRequired
 }
 
 export default NotificationList
