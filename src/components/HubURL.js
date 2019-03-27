@@ -82,7 +82,7 @@ HubURL.propTypes = {
 
 HubURL.defaultProps = {
   url: undefined,
-  connectionState: undefined,
+  connectionState: undefined
 }
 
 export default HubURL

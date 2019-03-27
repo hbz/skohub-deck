@@ -117,13 +117,13 @@ class App extends Component {
                 <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
               )}
               <section className="columns">
-                {socket && topic &&
+                {socket && topic && (
                   <NotificationList
                     notifications={notifications}
                     url={hubURL}
                     disconnect={this.disconnect}
                   />
-                }
+                )}
               </section>
             </Fragment>
           ) : (

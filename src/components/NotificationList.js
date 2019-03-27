@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import PropTypes from 'prop-types'
 import { css, jsx } from '@emotion/core'
-import { X } from 'react-feather'
 
 import { colors as c, padding, radius } from '../styles/variables'
 import Notification from './Notification'
