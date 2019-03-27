@@ -1,7 +1,7 @@
 {
   "name": "skohub-deck",
   "version": "0.1.0",
-  "description": "WebSub client for skohub",
+  "description": "WebSocket client for skohub",
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
