@@ -36,7 +36,7 @@ npm test
 
 Runs all tests and watch for changes, (Can also be limited to run a single test)
 ```
-test:watch"
+test:watch
 ```
 
 Runs all tests and shows the coverage of code
