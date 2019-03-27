@@ -34,43 +34,31 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      urls: [],
+      hubURL: null,
       topic: null,
-      connection: null,
+      socket: null,
       connectionState: null,
       notifications: []
     }
-    this.addURL = this.addURL.bind(this)
-    this.addTopic = this.addTopic.bind(this)
-    this.removeURL = this.removeURL.bind(this)
-    this.connectURL = this.connectURL.bind(this)
+    this.subscribe = this.subscribe.bind(this)
+    this.connect = this.connect.bind(this)
+    this.disconnect = this.disconnect.bind(this)
   }
 
-  addURL (url) {
-    const { urls } = this.state
-
-    this.setState({ urls: [...urls, url] })
-  }
-
-  addTopic (topic) {
-    const { urls } = this.state
-
+  subscribe (topic) {
+    this.state.socket &&
+    this.state.socket.send(JSON.stringify({
+      'mode': 'subscribe',
+      topic
+    }))
     this.setState({ topic })
-    this.connectURL(urls[0])
   }
 
-  removeURL (url) {
-    const { connection, urls } = this.state
-
-    this.setState({
-      urls: urls.filter(u => u !== url),
-      topic: null,
-      notifications: []
-    })
-    connection.close()
+  disconnect () {
+    this.state.socket.close()
   }
 
-  connectURL (hubURL) {
+  connect (hubURL) {
     const socket = new WebSocket(hubURL)
 
     socket.onerror = (error) => {
@@ -80,7 +68,6 @@ class App extends Component {
 
     socket.addEventListener('open', (event) => {
       this.setState({ connectionState: event.target.readyState })
-      socket.send('Hello Server from client!')
     })
 
     socket.addEventListener('close', (event) => {
@@ -91,12 +78,11 @@ class App extends Component {
       const { notifications } = this.state
       this.setState({ notifications: [{ data: event.data, timeStamp: event.timeStamp }, ...notifications] })
     })
-    this.setState({ connection: socket })
+    this.setState({ socket, hubURL })
   }
 
   render () {
-    const { urls, topic } = this.state
-    const { connection, notifications, connectionState } = this.state
+    const { hubURL, topic, socket, notifications, connectionState } = this.state
 
     return (
       <main css={style} className="App">
@@ -120,27 +106,24 @@ class App extends Component {
         />
         <ErrorBoundary>
           <HubURL
-            connectURL={this.connectURL}
-            topic={topic}
-            addURL={this.addURL}
-            url={(urls.length && urls[0]) || null}
+            connect={this.connect}
+            url={hubURL}
             connectionState={connectionState}
           />
-          {urls.length ? (
+          {hubURL && socket ? (
             <Fragment>
-              <TopicURI addTopic={this.addTopic} topic={topic} />
+              <TopicURI subscribe={this.subscribe} topic={topic} />
               {!topic && (
                 <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
               )}
               <section className="columns">
-                {(connection && topic) && urls.map(url => (
+                {socket && topic &&
                   <NotificationList
-                    key={url}
                     notifications={notifications}
-                    url={url}
-                    removeURL={this.removeURL}
+                    url={hubURL}
+                    disconnect={this.disconnect}
                   />
-                ))}
+                }
               </section>
             </Fragment>
           ) : (

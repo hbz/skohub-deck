@@ -39,13 +39,11 @@ const style = css`
 
 `
 
-const NotificationList = ({ url, removeURL, notifications }) => {
+const NotificationList = ({ notifications }) => {
   return (
     <div css={style} className="NotificationList">
       <div className="notificationListHeader">
-        Notifications <X onClick={() => {
-          removeURL(url)
-        }} />
+        Notifications
       </div>
       <div className="notificationListContent">
         {notifications.length ? (
@@ -61,8 +59,6 @@ const NotificationList = ({ url, removeURL, notifications }) => {
 }
 
 NotificationList.propTypes = {
-  url: PropTypes.string.isRequired,
-  removeURL: PropTypes.func.isRequired,
   notifications: PropTypes.arrayOf(PropTypes.shape({
     message: PropTypes.string,
     timeStamp: PropTypes.number

@@ -32,7 +32,7 @@ const style = css`
   }
 `
 
-const TopicURI = ({ addTopic, topic }) => {
+const TopicURI = ({ subscribe, topic }) => {
   return (
     <div css={style} className="TopicURI">
       {topic ? (
@@ -44,7 +44,7 @@ const TopicURI = ({ addTopic, topic }) => {
 
             const uri = e.target.uri.value
             if (uri) {
-              addTopic(uri)
+              subscribe(uri)
               e.target.uri.value = ''
             }
           }}
@@ -59,7 +59,7 @@ const TopicURI = ({ addTopic, topic }) => {
 
 TopicURI.propTypes = {
   topic: PropTypes.string,
-  addTopic: PropTypes.func.isRequired
+  subscribe: PropTypes.func.isRequired
 }
 
 TopicURI.defaultProps = {

@@ -32,7 +32,7 @@ const style = css`
   }
 `
 
-const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
+const HubURL = ({ url, connectionState, connect }) => {
   return (
     <div css={style} className="HubURL">
       {url ? (
@@ -47,9 +47,9 @@ const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
             <ZapOff/>
           )}
           &nbsp;{url}
-          {([2, 3, null].includes(connectionState) && topic) && (
+          {([2, 3, null].includes(connectionState)) && (
             <Fragment>
-              &nbsp;<RefreshCw onClick={() => { connectURL(url) }} />
+              &nbsp;<RefreshCw onClick={() => { connect(url) }} />
             </Fragment>
           )}
         </h2>
@@ -60,7 +60,7 @@ const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
 
             const url = e.target.url.value
             if (url) {
-              addURL(url)
+              connect(url)
               e.target.url.value = ''
             }
           }}
@@ -76,16 +76,13 @@ const HubURL = ({ addURL, url, connectionState, connectURL, topic }) => {
 
 HubURL.propTypes = {
   url: PropTypes.string,
-  addURL: PropTypes.func.isRequired,
-  connectURL: PropTypes.func.isRequired,
-  connectionState: PropTypes.number,
-  topic: PropTypes.string
+  connect: PropTypes.func.isRequired,
+  connectionState: PropTypes.number
 }
 
 HubURL.defaultProps = {
   url: undefined,
   connectionState: undefined,
-  topic: undefined
 }
 
 export default HubURL
