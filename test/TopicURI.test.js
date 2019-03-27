@@ -11,7 +11,7 @@ import TopicURI from '../src/components/TopicURI'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('TopicURI', () => {
-  const wrapper = shallow(<TopicURI addTopic={() => {}} topic={null} />)
+  const wrapper = shallow(<TopicURI subscribe={() => {}} topic={null} />)
 
   test('Renders', () => {
     expect(wrapper.exists('form')).toBe(true)

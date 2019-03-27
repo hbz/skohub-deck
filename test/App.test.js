@@ -22,22 +22,22 @@ describe('App', () => {
     expect(wrapper.exists()).toBe(true)
   })
 
-  test('Method addURL', () => {
+  test('Method connect', () => {
     expect(wrapper.find('.columns').children().length).toBe(0)
-    expect(wrapper.state('urls').length).toBe(0)
-    instance.addURL(fakeURL)
-    expect(wrapper.state('urls').includes(fakeURL)).toBe(true)
+    expect(wrapper.state('hubURL')).toBe(null)
+    instance.connect(fakeURL)
+    expect(wrapper.state('hubURL')).toBe(fakeURL)
   })
 
-  test('Method addTopic', () => {
-    instance.addTopic('Test topic')
+  test('Method subscribe', () => {
+    instance.subscribe('Test topic')
     expect(wrapper.state('topic')).toBe('Test topic')
     expect(wrapper.find('.columns').children().length).toBe(1)
   })
 
   test('Connects to fake WS', async () => {
     await server.connected
-    await expect(server).toReceiveMessage('Hello Server from client!')
+    await expect(server).toReceiveMessage(JSON.stringify({ 'mode': 'subscribe', 'topic': 'Test topic' }))
     await server.send('Test')
   })
 
@@ -54,13 +54,11 @@ describe('App', () => {
     expect(wrapper.state('connectionState')).toBe(1)
   })
 
-  test('Method removeURL', () => {
+  test('Method disconnect', () => {
     expect(wrapper.find('.columns').children().length).toBe(1)
-    expect(wrapper.state('urls').includes(fakeURL)).toBe(true)
+    expect(wrapper.state('hubURL')).toBe(fakeURL)
     expect(wrapper.state('topic')).toBe('Test topic')
-    instance.removeURL(fakeURL)
-    expect(wrapper.state('urls').includes(fakeURL)).toBe(false)
-    expect(wrapper.state('topic')).toBe(null)
-    expect(wrapper.find('.columns').children().length).toBe(0)
+    instance.disconnect()
+    expect(wrapper.prop('socket')).toBe(undefined)
   })
 })

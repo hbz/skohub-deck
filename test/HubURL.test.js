@@ -18,8 +18,7 @@ const fakeConnectURL = () => {
 describe('HubURL', () => {
   const wrapper = shallow(
     <HubURL
-      addURL={() => {}}
-      connectURL={fakeConnectURL}
+      connect={fakeConnectURL}
       url={null}
     />
   )
@@ -60,7 +59,7 @@ describe('HubURL', () => {
     wrapper.setProps({ connectionState: 1 })
     expect(wrapper.find('Zap').exists()).toBe(true)
 
-    wrapper.setProps({ connectionState: 2, topic: 'Test Topic' })
+    wrapper.setProps({ connectionState: 2 })
     expect(wrapper.find('ZapOff').exists()).toBe(true)
     wrapper.find('RefreshCw').simulate('click')
     expect(clicked).toBe(true)

@@ -10,16 +10,10 @@ import NotificationList from '../src/components/NotificationList'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-let clicked = false
-const fakeRemoveURL = () => {
-  clicked = true
-}
-
 describe('NotificationList', () => {
   const wrapper = shallow(
     <NotificationList
-      url="http://example.com"
-      removeURL={fakeRemoveURL}
+      disconnect={() => {}}
       notifications={[]}
     />
   )
@@ -28,7 +22,7 @@ describe('NotificationList', () => {
 
   test('Renders', () => {
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.find('.notificationListHeader').text()).toBe('Notifications <X />')
+    expect(wrapper.find('.notificationListHeader').text()).toBe('Notifications')
     expect(wrapper.find('div').last().children().prop('message')).toBe('No notifications yet')
   })
 
@@ -44,11 +38,5 @@ describe('NotificationList', () => {
     fakeData.unshift({ data: 'baz', timeStamp: 8848 })
     wrapper.setProps({ notifications: fakeData })
     expect(wrapper.find('Notification').first().prop('message')).toBe('baz')
-  })
-
-  test('Test removeURL', () => {
-    expect(clicked).toBe(false)
-    wrapper.find('X').simulate('click')
-    expect(clicked).toBe(true)
   })
 })
