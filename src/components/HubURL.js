@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import { Fragment } from 'react'
 import { css, jsx } from '@emotion/core'
-import { Loader, Zap, ZapOff, RefreshCw, X } from 'react-feather'
+import { Loader, Zap, ZapOff, RefreshCw, CloudOff } from 'react-feather'
 
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
@@ -36,11 +36,11 @@ const style = css`
 `
 
 const HubURL = ({ url, connectionState, connect, disconnect }) => {
-
   return (
-    <div css={[style, css`
+    <div css={css`
+      ${style}
       background-color: ${connectionState === 1 ? c.connection : null};
-    `]} className="HubURL">
+    `} className="HubURL">
       {url ? (
         <div className="title">
           <h2>
@@ -57,7 +57,7 @@ const HubURL = ({ url, connectionState, connect, disconnect }) => {
           </h2>
           <div>
             {(url && [0, 1].includes(connectionState)) &&
-              <X onClick={disconnect} title="Close" />
+              <CloudOff onClick={disconnect} title="Close" />
             }
             {(url && [2, 3, null].includes(connectionState)) && (
               <Fragment>

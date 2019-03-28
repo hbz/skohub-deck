@@ -18,6 +18,7 @@ const fakeConnectURL = () => {
 describe('HubURL', () => {
   const wrapper = shallow(
     <HubURL
+      disconnect={() => {}}
       connect={fakeConnectURL}
       url={null}
     />
