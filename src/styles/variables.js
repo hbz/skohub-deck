@@ -6,7 +6,8 @@ export const colors = {
   secondary: '#222428',
   base: '#eff0f2',
   accent: '#55555a',
-  text: '#fbfbff'
+  text: '#fbfbff',
+  connection: '#3eef19'
 }
 
 export const padding = css`

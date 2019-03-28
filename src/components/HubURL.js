@@ -36,8 +36,11 @@ const style = css`
 `
 
 const HubURL = ({ url, connectionState, connect, disconnect }) => {
+
   return (
-    <div css={style} className="HubURL">
+    <div css={[style, css`
+      background-color: ${connectionState === 1 ? c.connection : null};
+    `]} className="HubURL">
       {url ? (
         <div className="title">
           <h2>
