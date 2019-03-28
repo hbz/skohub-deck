@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import PropTypes from 'prop-types'
 import { css, jsx } from '@emotion/core'
-import { Radio } from 'react-feather'
+import { Radio, X } from 'react-feather'
 
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
@@ -17,8 +17,11 @@ const style = css`
     align-items: center;
   }
 
-  form {
+  form,
+  .title {
+    color: ${c.text};
     display: flex;
+    justify-content: space-between;
 
     input[type=text] {
       flex: 1;
@@ -32,11 +35,17 @@ const style = css`
   }
 `
 
-const TopicURI = ({ subscribe, topic }) => {
+const TopicURI = ({ subscribe, topic, removeTopic }) => {
   return (
-    <div css={style} className="TopicURI">
+    <div css={css`
+      ${style}
+      background-color: ${topic ? c.accent : null};
+    `} className="TopicURI">
       {topic ? (
-        <h3><Radio />&nbsp;Using the topic: {topic}</h3>
+        <div className="title">
+          <h3><Radio />&nbsp;Using the topic: {topic}</h3>
+          <X onClick={removeTopic} title="Remove Topic" />
+        </div>
       ) : (
         <form
           onSubmit={e => {
@@ -49,7 +58,13 @@ const TopicURI = ({ subscribe, topic }) => {
             }
           }}
         >
-          <input aria-label="uri" required type="text" placeholder="Input a topic to subscribe" name="uri"/>
+          <input
+            aria-label="uri"
+            required
+            type="text"
+            placeholder="Input a topic to subscribe"
+            name="uri"
+          />
           <input type="submit" value="Add topic"/>
         </form>
       )}
@@ -59,7 +74,8 @@ const TopicURI = ({ subscribe, topic }) => {
 
 TopicURI.propTypes = {
   topic: PropTypes.string,
-  subscribe: PropTypes.func.isRequired
+  subscribe: PropTypes.func.isRequired,
+  removeTopic: PropTypes.func.isRequired
 }
 
 TopicURI.defaultProps = {

@@ -8,11 +8,13 @@ storiesOf('TopicURI', module)
   .add('Without topic', () => (
     <TopicURI
       subscribe={action('subscribe')}
+      removeTopic={action('removeTopic')}
     />
   ))
   .add('With topic', () => (
     <TopicURI
       subscribe={action('subscribe')}
+      removeTopic={action('removeTopic')}
       topic="Topic name"
     />
   ))
