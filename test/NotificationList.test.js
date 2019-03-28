@@ -23,7 +23,7 @@ describe('NotificationList', () => {
   test('Renders', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.notificationListHeader').text()).toBe('Notifications')
-    expect(wrapper.find('div').last().children().prop('message')).toBe('No notifications yet')
+    expect(wrapper.find('.notificationListContent').children().prop('children')).toBe('No notifications yet')
   })
 
   test('Check the number of elements', () => {
@@ -34,9 +34,9 @@ describe('NotificationList', () => {
   })
 
   test('Check if the new element is at the beginning', () => {
-    expect(wrapper.find('Notification').last().prop('message')).toBe('foo')
+    expect(JSON.parse(wrapper.find('Notification').last().find('pre').text())).toBe('foo')
     fakeData.unshift({ data: 'baz', timeStamp: 8848 })
     wrapper.setProps({ notifications: fakeData })
-    expect(wrapper.find('Notification').first().prop('message')).toBe('baz')
+    expect(JSON.parse(wrapper.find('Notification').first().find('pre').text())).toBe('baz')
   })
 })
