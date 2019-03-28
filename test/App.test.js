@@ -35,6 +35,7 @@ describe('App', () => {
     expect(wrapper.find('.columns').children().length).toBe(1)
   })
 
+
   test('Connects to fake WS', async () => {
     await server.connected
     await expect(server).toReceiveMessage(JSON.stringify({ 'mode': 'subscribe', 'topic': 'Test topic' }))
@@ -60,5 +61,12 @@ describe('App', () => {
     expect(wrapper.state('topic')).toBe('Test topic')
     instance.disconnect()
     expect(wrapper.prop('socket')).toBe(undefined)
+  })
+
+  test('Method removeTopic', () => {
+    expect(wrapper.state('topic')).toBe('Test topic')
+    instance.removeTopic()
+    expect(wrapper.state('topic')).toBe(null)
+    expect(wrapper.find('.columns').children().length).toBe(0)
   })
 })
