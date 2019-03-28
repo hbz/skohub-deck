@@ -102,6 +102,10 @@ class App extends Component {
               -moz-box-sizing: inherit;
               box-sizing: inherit;
             }
+            pre {
+              white-space: pre-wrap;
+              word-wrap: break-word;
+            }
           `}
         />
         <ErrorBoundary>

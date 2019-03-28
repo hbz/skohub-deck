@@ -7,7 +7,6 @@ import Notification from './Notification'
 
 const style = css`
   flex: 0 0 100%;
-  max-width: 250px;
   border: 1px solid ${c.secondary};
   ${radius}
   display: flex;
@@ -47,10 +46,16 @@ const NotificationList = ({ notifications }) => {
       <div className="notificationListContent">
         {notifications.length ? (
           notifications.map(notification => (
-            <Notification key={notification.timeStamp} message={notification.data} />
+            <Notification key={notification.timeStamp}>
+              <pre>
+                {JSON.stringify(notification.data, null, 2)}
+              </pre>
+            </Notification>
           ))
         ) : (
-          <Notification message='No notifications yet' />
+          <Notification>
+            No notifications yet
+          </Notification>
         )}
       </div>
     </div>
