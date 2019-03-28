@@ -109,6 +109,7 @@ class App extends Component {
             connect={this.connect}
             url={hubURL}
             connectionState={connectionState}
+            disconnect={this.disconnect}
           />
           {hubURL && socket ? (
             <Fragment>
