@@ -7,7 +7,7 @@ export const colors = {
   base: '#eff0f2',
   accent: '#55555a',
   text: '#fbfbff',
-  connection: '#3eef19'
+  connection: '#34e011'
 }
 
 export const padding = css`
