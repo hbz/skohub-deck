@@ -30,7 +30,7 @@ const style = css`
     }
 
     input[type=submit] {
-      ${buttonStyle}
+      ${buttonStyle};
     }
   }
 `

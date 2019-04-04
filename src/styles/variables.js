@@ -18,7 +18,7 @@ export const radius = css`
 `
 
 export const buttonStyle = css`
-  padding: 0,
+  padding: 0;
   border: 0;
   border: 0;
   ${padding};

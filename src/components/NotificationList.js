@@ -16,7 +16,7 @@ const style = css`
   .notificationListHeader {
     color: ${c.text};
     background-color: ${c.secondary};
-    ${padding}
+    ${padding};
     display: flex;
     align-items: center;
     justify-content: space-between;

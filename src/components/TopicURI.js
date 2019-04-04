@@ -30,7 +30,7 @@ const style = css`
     }
 
     input[type=submit] {
-      ${buttonStyle}
+      ${buttonStyle};
     }
   }
 `
@@ -38,7 +38,7 @@ const style = css`
 const TopicURI = ({ subscribe, topic, removeTopic }) => {
   return (
     <div css={css`
-      ${style}
+      ${style};
       background-color: ${topic ? c.accent : null};
     `} className="TopicURI">
       {topic ? (
