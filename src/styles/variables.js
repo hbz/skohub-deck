@@ -7,7 +7,7 @@ export const colors = {
   base: '#eff0f2',
   accent: '#55555a',
   text: '#fbfbff',
-  connection: '#3eef19'
+  connection: '#34e011'
 }
 
 export const padding = css`
@@ -18,7 +18,7 @@ export const radius = css`
 `
 
 export const buttonStyle = css`
-  padding: 0,
+  padding: 0;
   border: 0;
   border: 0;
   ${padding};

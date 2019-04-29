@@ -18,13 +18,13 @@ storiesOf('HubURL', module)
   .add('Without url', () => (
     <HubURL
       connect={action('connect')}
-      discconect={action('discconect')}
+      disconnect={action('disconnect')}
     />
   ))
   .add('Connecting', () => (
     <HubURL
       connect={action('connect')}
-      discconect={action('discconect')}
+      disconnect={action('disconnect')}
       url="ws://localhost:3333"
       connectionState={0}
     />
@@ -32,7 +32,7 @@ storiesOf('HubURL', module)
   .add('Connected', () => (
     <HubURL
       connect={action('connect')}
-      discconect={action('discconect')}
+      disconnect={action('disconnect')}
       url="ws://localhost:3333"
       connectionState={1}
     />
@@ -40,7 +40,7 @@ storiesOf('HubURL', module)
   .add('Disconnected', () => (
     <HubURL
       connect={action('connect')}
-      discconect={action('discconect')}
+      disconnect={action('disconnect')}
       url="ws://localhost:3333"
       connectionState={3}
     />
@@ -48,7 +48,7 @@ storiesOf('HubURL', module)
   .add('Interactive', () => (
     <HubURL
       connect={action('connect')}
-      discconect={action('discconect')}
+      disconnect={action('disconnect')}
       url={text('Url', 'ws://localhost:3333')}
       connectionState={+radios(label, options, 3)}
     />
