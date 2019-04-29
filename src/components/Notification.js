@@ -8,16 +8,16 @@ const style = css`
   ${padding}
 `
 
-const Notification = ({ message }) => {
+const Notification = ({ children }) => {
   return (
     <div css={style} className="Notification" >
-      {message}
+      {children}
     </div>
   )
 }
 
 Notification.propTypes = {
-  message: PropTypes.string.isRequired
+  children: PropTypes.node.isRequired
 }
 
 export default Notification

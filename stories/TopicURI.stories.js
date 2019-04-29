@@ -7,11 +7,14 @@ import TopicURI from '../src/components/TopicURI'
 storiesOf('TopicURI', module)
   .add('Without topic', () => (
     <TopicURI
-      addTopic={action('addTopic')}
+      subscribe={action('subscribe')}
+      removeTopic={action('removeTopic')}
     />
   ))
   .add('With topic', () => (
     <TopicURI
+      subscribe={action('subscribe')}
+      removeTopic={action('removeTopic')}
       topic="Topic name"
     />
   ))

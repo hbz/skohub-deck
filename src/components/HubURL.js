@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import { Fragment } from 'react'
 import { css, jsx } from '@emotion/core'
-import { Loader, Zap, ZapOff, RefreshCw } from 'react-feather'
+import { Loader, Zap, ZapOff, RefreshCw, CloudOff } from 'react-feather'
 
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
@@ -17,8 +17,11 @@ const style = css`
     align-items: center;
   }
 
-  form {
+  form,
+  .title {
+    color: ${c.text};
     display: flex;
+    justify-content: space-between;
 
     input[type=url] {
       flex: 1;
@@ -32,27 +35,37 @@ const style = css`
   }
 `
 
-const HubURL = ({ url, connectionState, connect }) => {
+const HubURL = ({ url, connectionState, connect, disconnect }) => {
   return (
-    <div css={style} className="HubURL">
+    <div css={css`
+      ${style}
+      background-color: ${connectionState === 1 ? c.connection : null};
+    `} className="HubURL">
       {url ? (
-        <h2>
-          {connectionState === 0 &&
-            <Loader/>
-          }
-          {connectionState === 1 &&
-            <Zap/>
-          }
-          {([2, 3, null].includes(connectionState)) && (
-            <ZapOff/>
-          )}
-          &nbsp;{url}
-          {([2, 3, null].includes(connectionState)) && (
-            <Fragment>
-              &nbsp;<RefreshCw onClick={() => { connect(url) }} />
-            </Fragment>
-          )}
-        </h2>
+        <div className="title">
+          <h2>
+            {connectionState === 0 &&
+              <Loader title="Connecting"/>
+            }
+            {connectionState === 1 &&
+              <Zap title="Connected"/>
+            }
+            {([2, 3, null].includes(connectionState)) && (
+              <ZapOff title="Disconnected"/>
+            )}
+            &nbsp;{url}
+          </h2>
+          <div>
+            {(url && [0, 1].includes(connectionState)) &&
+              <CloudOff onClick={disconnect} title="Close" />
+            }
+            {(url && [2, 3, null].includes(connectionState)) && (
+              <Fragment>
+                &nbsp;<RefreshCw onClick={() => { connect(url) }} />
+              </Fragment>
+            )}
+          </div>
+        </div>
       ) : (
         <form
           onSubmit={e => {
@@ -77,6 +90,7 @@ const HubURL = ({ url, connectionState, connect }) => {
 HubURL.propTypes = {
   url: PropTypes.string,
   connect: PropTypes.func.isRequired,
+  disconnect: PropTypes.func.isRequired,
   connectionState: PropTypes.number
 }
 

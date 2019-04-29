@@ -43,6 +43,7 @@ class App extends Component {
     this.subscribe = this.subscribe.bind(this)
     this.connect = this.connect.bind(this)
     this.disconnect = this.disconnect.bind(this)
+    this.removeTopic = this.removeTopic.bind(this)
   }
 
   subscribe (topic) {
@@ -56,6 +57,10 @@ class App extends Component {
 
   disconnect () {
     this.state.socket.close()
+  }
+
+  removeTopic () {
+    this.setState({ topic: null })
   }
 
   connect (hubURL) {
@@ -102,6 +107,10 @@ class App extends Component {
               -moz-box-sizing: inherit;
               box-sizing: inherit;
             }
+            pre {
+              white-space: pre-wrap;
+              word-wrap: break-word;
+            }
           `}
         />
         <ErrorBoundary>
@@ -109,10 +118,11 @@ class App extends Component {
             connect={this.connect}
             url={hubURL}
             connectionState={connectionState}
+            disconnect={this.disconnect}
           />
           {hubURL && socket ? (
             <Fragment>
-              <TopicURI subscribe={this.subscribe} topic={topic} />
+              <TopicURI removeTopic={this.removeTopic} subscribe={this.subscribe} topic={topic} />
               {!topic && (
                 <div className="addNew" ><CornerLeftUp /> Add a new topic</div>
               )}

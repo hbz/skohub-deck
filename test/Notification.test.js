@@ -11,7 +11,9 @@ import Notification from '../src/components/Notification'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe('Notification', () => {
-  const wrapper = shallow(<Notification message="Test message" />)
+  const wrapper = shallow(<Notification>
+    Test message
+  </Notification>)
 
   test('Renders', () => {
     expect(wrapper.exists()).toBe(true)
