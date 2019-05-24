@@ -1,5 +1,6 @@
 # skohub-deck
 
+The [SkoHub](https://skohub.io) [deck](https://test.skohub.io/deck/) is a proof of concept to show that the technologies developed actually work. It enables people to subscribe to notifications for specific subjects in the browser. The incoming notifications will be shown in a Tweetdeck-like interface.
 
 ## Install
 
