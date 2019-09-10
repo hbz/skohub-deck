@@ -52,7 +52,7 @@ describe('App', () => {
 
   test('Close connection from server', async () => {
     await server.close()
-    expect(wrapper.state('connectionState')).toBe(1)
+    expect(wrapper.state('connectionState')).toBe(undefined)
   })
 
   test('Method disconnect', () => {
