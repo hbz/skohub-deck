@@ -7,8 +7,14 @@ import { Loader, Zap, ZapOff, RefreshCw, CloudOff } from 'react-feather'
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
 const style = css`
-  background-color: ${c.primary};
-  padding: 10px 20px;
+  padding-bottom: 20px;
+  flex: 1;
+
+  button.inputStyle svg {
+    padding: 2px;
+    position: relative;
+    top: 2px;
+  }
 
   h2 {
     margin: 0;
@@ -25,12 +31,11 @@ const style = css`
 
     input[type=url] {
       flex: 1;
-      border: 0;
       ${padding};
     }
 
     input[type=submit] {
-      ${buttonStyle};
+      margin-left: 10px;
     }
   }
 `
@@ -39,7 +44,6 @@ const HubURL = ({ url, connectionState, connect, disconnect }) => {
   return (
     <div css={css`
       ${style}
-      background-color: ${connectionState === 1 ? c.connection : null};
     `} className="HubURL">
       {url ? (
         <div className="title">
@@ -48,21 +52,38 @@ const HubURL = ({ url, connectionState, connect, disconnect }) => {
               <Loader title="Connecting"/>
             }
             {connectionState === 1 &&
-              <Zap title="Connected"/>
+              <Zap
+                style={{stroke: c.accent}}
+                title="Connected"
+              />
             }
             {([2, 3, null].includes(connectionState)) && (
-              <ZapOff title="Disconnected"/>
+              <ZapOff
+                style={{stroke: c.error}}
+                title="Disconnected"
+              />
             )}
             &nbsp;{url}
           </h2>
           <div>
             {(url && [0, 1].includes(connectionState)) &&
-              <CloudOff onClick={disconnect} title="Close" />
+              <button
+                className="inputStyle"
+                onClick={disconnect}
+                title="Disconnect"
+              >
+                <CloudOff/>
+              </button>
+
             }
             {(url && [2, 3, null].includes(connectionState)) && (
-              <Fragment>
-                &nbsp;<RefreshCw onClick={() => { connect(url) }} />
-              </Fragment>
+              <button
+                className="inputStyle"
+                onClick={() => { connect(url) }}
+                title="Reconnect"
+              >
+                <RefreshCw/>
+              </button>
             )}
           </div>
         </div>
@@ -78,8 +99,8 @@ const HubURL = ({ url, connectionState, connect, disconnect }) => {
             }
           }}
         >
-          <input aria-label="url" required type="url" placeholder="Input a Hub URL to connect" name="url"/>
-          <input type="submit" value="Add Hub"/>
+          <input className="inputStyle" aria-label="url" required type="url" placeholder="Input a Hub URL to connect" name="url"/>
+          <input className="inputStyle" type="submit" value="Add Hub"/>
         </form>
       )}
 
