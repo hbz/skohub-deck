@@ -30,10 +30,12 @@ const style = css`
 
 class App extends Component {
   constructor (props) {
+    const url = new URL(window.location.href)
+
     super(props)
     this.state = {
-      hubURL: null,
-      topic: null,
+      hubURL: url.searchParams.get('hub'),
+      topic: url.searchParams.get('topic'),
       socket: null,
       connectionState: null,
       notifications: []
@@ -61,20 +63,23 @@ class App extends Component {
     this.setState({ topic: null })
   }
 
-  connect (hubURL) {
+  connect (hubURL, cb) {
     const socket = new WebSocket(hubURL)
 
     socket.onerror = (error) => {
       this.setState({ connectionState: error.target.readyState })
+      cb && cb(error.target.readyState)
       throw (error)
     }
 
     socket.addEventListener('open', (event) => {
       this.setState({ connectionState: event.target.readyState })
+      cb && cb(event.target.readyState)
     })
 
     socket.addEventListener('close', (event) => {
       this.setState({ connectionState: event.target.readyState })
+      cb && cb(event.target.readyState)
     })
 
     socket.addEventListener('message', (event) => {
@@ -82,6 +87,14 @@ class App extends Component {
       this.setState({ notifications: [{ data: JSON.parse(event.data), timeStamp: event.timeStamp }, ...notifications] })
     })
     this.setState({ socket, hubURL })
+  }
+
+  componentDidMount() {
+    const { connect, subscribe, state: { hubURL, topic } } = this
+
+    hubURL && connect(hubURL, (connectionState) => {
+      connectionState === 1 && topic && subscribe(topic)
+    })
   }
 
   render () {
