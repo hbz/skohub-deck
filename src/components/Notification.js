@@ -5,7 +5,11 @@ import { css, jsx } from '@emotion/core'
 import { padding } from '../styles/variables'
 
 const style = css`
-  ${padding};
+  ${padding}
+
+  pre {
+    margin: 0;
+  }
 `
 
 const Notification = ({ children }) => {

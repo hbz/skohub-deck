@@ -6,29 +6,34 @@ import { colors as c, padding, radius } from '../styles/variables'
 import Notification from './Notification'
 
 const style = css`
-  flex: 0 0 100%;
-  border: 1px solid ${c.secondary};
-  ${radius}
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  h2 {
+    margin: 0;
+    position: relative;
+    padding-bottom: 10px;
 
-  .notificationListHeader {
-    color: ${c.text};
-    background-color: ${c.secondary};
-    ${padding};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    &:before {
+      position: absolute;
+      background: #f5f7f9;
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 2px;
+      left: 0;
+      right: 0;
+    }
   }
 
   .notificationListContent {
     flex: 1;
     overflow-y: auto;
+
+    & div:nth-child(even) {
+      background-color: hsl(0, 0%, 98%);
+    }
   }
 
   div:last-child > * {
-    border-bottom: 1px solid ${c.secondary};
+    border-bottom: 2px solid ${c.base};
 
     &:last-child {
       border-bottom: none;
@@ -39,10 +44,10 @@ const style = css`
 
 const NotificationList = ({ notifications }) => {
   return (
-    <div css={style} className="NotificationList">
-      <div className="notificationListHeader">
+    <div css={style} className="NotificationList block">
+      <h2>
         Notifications
-      </div>
+      </h2>
       <div className="notificationListContent">
         {notifications.length ? (
           notifications.map(notification => (
