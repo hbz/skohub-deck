@@ -167,15 +167,15 @@ class App extends Component {
         <ErrorBoundary>
 
           <Header>
-          </Header>
-
-          <main>
-              <HubURL
+           <HubURL
                 connect={this.connect}
                 url={hubURL}
                 connectionState={connectionState}
                 disconnect={this.disconnect}
               />
+          </Header>
+
+          <main>
             {hubURL && socket ? (
               <Fragment>
                 <TopicURI removeTopic={this.removeTopic} subscribe={this.subscribe} topic={topic} />
