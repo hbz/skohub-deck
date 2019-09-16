@@ -31,7 +31,7 @@ const style = css`
     align-items: center;
   }
 
-  svg {
+  .wave svg {
     position: absolute;
     bottom: 0;
     left: 0;

@@ -7,7 +7,7 @@ import { Loader, Zap, ZapOff, RefreshCw, CloudOff } from 'react-feather'
 import { colors as c, padding, buttonStyle } from '../styles/variables'
 
 const style = css`
-  padding-bottom: 20px;
+  padding-left: 20px;
   flex: 1;
 
   button.inputStyle svg {
@@ -53,7 +53,7 @@ const HubURL = ({ url, connectionState, connect, disconnect }) => {
             }
             {connectionState === 1 &&
               <Zap
-                style={{stroke: c.accent}}
+                style={{stroke: c.success}}
                 title="Connected"
               />
             }
