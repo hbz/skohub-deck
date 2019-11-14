@@ -8,6 +8,9 @@ module.exports = (env, options) => {
 
   let config = {
     mode,
+    devServer: {
+      port: process.env.PORT || 8080,
+    },
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
